@@ -6,7 +6,6 @@ export const API_BASE_URL = "https://jobs-api.squareboat.info/api/v1";
 
 export const publicAxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -16,7 +15,6 @@ export const publicAxiosInstance = axios.create({
 
 export const privateAxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
