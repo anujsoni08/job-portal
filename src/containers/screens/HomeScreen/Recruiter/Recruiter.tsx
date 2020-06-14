@@ -35,7 +35,7 @@ const Recruiter = () => {
     const params = {
       jobId,
     };
-    const res = await deleteJob(params);
+    await deleteJob(params);
   };
 
   const handleModalClose = () => {
@@ -79,6 +79,7 @@ const Recruiter = () => {
                           <a
                             className="dropdown-item"
                             role="button"
+                            type="button"
                             onClick={() => {
                               setSelectedJobId(jobDetail.id);
                               setModalState(true);
@@ -88,6 +89,7 @@ const Recruiter = () => {
                           </a>
                           <a
                             role="button"
+                            type="button"
                             className="dropdown-item"
                             onClick={() => handleDeleteJob(jobDetail.id)}
                           >

@@ -6,11 +6,26 @@ import { USER_TYPE } from "../../../../utils/constant";
 import AlreadyAppliedJobs from "../Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
 import Modal from "../../../../components/common/Modal/Modal";
 import PostNewJobs from "../Recruiter/PostNewJob/PostNewJob";
+import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
 
 const Navigation = ({ history }: RouteComponentProps) => {
   const userRole: any = parseInt(sessionStorage.getItem("userRole") ?? "");
 
   const [modalState, setModalState] = useState(false);
+
+  const [snackbarValues, setSnackbarValues] = useState({
+    mode: "error",
+    message: "",
+    state: false,
+  });
+
+  const handleSnackbarClose = () => {
+    setSnackbarValues({
+      mode: "error",
+      message: "",
+      state: false,
+    });
+  };
 
   const navItems = () => {
     if (userRole === USER_TYPE.CANDIDATE) {
@@ -19,6 +34,7 @@ const Navigation = ({ history }: RouteComponentProps) => {
           <a
             className="nav-link"
             role="button"
+            type="button"
             onClick={() => setModalState(true)}
           >
             Already Applied Jobs
@@ -44,7 +60,26 @@ const Navigation = ({ history }: RouteComponentProps) => {
     if (userRole === USER_TYPE.CANDIDATE) {
       return <AlreadyAppliedJobs />;
     } else {
-      return <PostNewJobs />;
+      return <PostNewJobs handleStatus={handleJobPostStatus} />;
+    }
+  };
+
+  const handleJobPostStatus = (res: any) => {
+    console.log(res);
+    if (res.code === 200 || res.code === 201) {
+      setSnackbarValues({
+        mode: "success",
+        message: "New job successfully posted",
+        state: true,
+      });
+      setModalState(false);
+    } else {
+      setSnackbarValues({
+        mode: "error",
+        message: "New job posting error",
+        state: true,
+      });
+      setModalState(false);
     }
   };
 
@@ -96,6 +131,12 @@ const Navigation = ({ history }: RouteComponentProps) => {
       <Modal isOpen={modalState} onClose={() => setModalState(!modalState)}>
         {modalChildren()}
       </Modal>
+      <SimpleSnackbar
+        message={snackbarValues.message}
+        state={snackbarValues.state}
+        mode={snackbarValues.mode}
+        onClose={() => handleSnackbarClose()}
+      />
     </header>
   );
 };

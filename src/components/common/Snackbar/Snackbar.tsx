@@ -1,18 +1,18 @@
-import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import styled from '@material-ui/core/styles/styled';
+import React from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import styled from "@material-ui/core/styles/styled";
 
 interface snackBarProps {
   message?: string;
-  mode?: 'error' | 'warning' | 'success';
+  mode?: string;
   state?: boolean;
   onClose?: () => void;
 }
 
-const Message = styled('span')({
-  display: 'flex',
-  alignItems: 'center',
+const Message = styled("span")({
+  display: "flex",
+  alignItems: "center",
 });
 
 function Alert(props: any) {
@@ -31,8 +31,8 @@ const SimpleSnackbar = (props: snackBarProps) => {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
+        vertical: "bottom",
+        horizontal: "left",
       }}
       open={Boolean(state)}
       autoHideDuration={5000}

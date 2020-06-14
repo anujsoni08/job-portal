@@ -22,14 +22,14 @@ const Candidate = () => {
     const params = {
       jobId,
     };
-    const res = await applyCandidateJob(params);
+    await applyCandidateJob(params);
   };
 
   return (
     <div className="my-3 p-3 bg-white rounded shadow-sm">
       {jobList.length ? (
         <Fragment>
-          <h6 className="border-bottom border-gray pb-2 mb-0">
+        <h6 className="border-bottom border-gray pb-2 mb-0">
             Available Jobs
           </h6>
           {jobList.map((jobDetail: JobDetailInterface) => {

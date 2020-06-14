@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 
 import { getJobDetail } from "../../../utils/private.api.helper";

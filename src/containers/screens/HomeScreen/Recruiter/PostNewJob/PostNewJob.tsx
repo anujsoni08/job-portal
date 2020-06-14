@@ -1,8 +1,8 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useState } from "react";
 
 import { createJob } from "../../../../../utils/private.api.helper";
 
-const PostNewJobs = () => {
+const PostNewJob = (props: any) => {
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
@@ -21,7 +21,7 @@ const PostNewJobs = () => {
   const handlePostNewJob = async (event: any) => {
     event.preventDefault();
     const res = await createJob(formValues);
-    console.log(res);
+    props.handleStatus(res.data);
   };
 
   return (
@@ -29,37 +29,52 @@ const PostNewJobs = () => {
       <h6 className="pb-2 mb-0 text-center">Post Job</h6>
       <hr />
       <form>
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            name="title"
-            type="text"
-            onChange={handleFormValues}
-            className="form-control"
-            placeholder="Enter job title"
-          />
+        <div className="form-group row">
+          <label htmlFor="title" className="col-sm-3 col-form-label">
+            Title
+          </label>
+          <div className="col-sm-9">
+            <input
+              name="title"
+              id="title"
+              type="text"
+              onChange={handleFormValues}
+              className="form-control"
+              placeholder="Enter job title"
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Description</label>
-          <input
-            name="description"
-            type="text"
-            onChange={handleFormValues}
-            className="form-control"
-            placeholder="Enter description"
-          />
+        <div className="form-group row">
+          <label htmlFor="description" className="col-sm-3 col-form-label">
+            Description
+          </label>
+          <div className="col-sm-9">
+            <input
+              name="description"
+              id="description"
+              type="text"
+              onChange={handleFormValues}
+              className="form-control"
+              placeholder="Enter description"
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Location</label>
-          <input
-            name="location"
-            type="text"
-            onChange={handleFormValues}
-            className="form-control"
-            placeholder="Enter location"
-          />
+        <div className="form-group row">
+          <label htmlFor="location" className="col-sm-3 col-form-label">
+            Location
+          </label>
+          <div className="col-sm-9">
+            <input
+              name="location"
+              id="location"
+              type="text"
+              onChange={handleFormValues}
+              className="form-control"
+              placeholder="Enter location"
+            />
+          </div>
         </div>
 
         <div className="text-center">
@@ -75,4 +90,4 @@ const PostNewJobs = () => {
   );
 };
 
-export default PostNewJobs;
+export default PostNewJob;
