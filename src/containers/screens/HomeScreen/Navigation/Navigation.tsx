@@ -7,6 +7,7 @@ import Modal from "../../../../components/common/Modal/Modal";
 import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
 import AlreadyAppliedJobs from "../Main/Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
 import PostNewJob from "../Main/Recruiter/PostNewJob/PostNewJob";
+import { Link } from "react-router-dom";
 
 const Navigation = ({ history }: RouteComponentProps) => {
   const userRole: any = parseInt(sessionStorage.getItem("userRole") ?? "");
@@ -72,7 +73,9 @@ const Navigation = ({ history }: RouteComponentProps) => {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a className="navbar-brand">Job Portal</a>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          Job Portal
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
