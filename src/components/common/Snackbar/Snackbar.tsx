@@ -2,13 +2,8 @@ import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import styled from "@material-ui/core/styles/styled";
-
-interface snackBarProps {
-  message?: string;
-  mode?: string;
-  state?: boolean;
-  onClose?: () => void;
-}
+import { connect } from "react-redux";
+import * as actions from "../../../store/action";
 
 const Message = styled("span")({
   display: "flex",
@@ -19,13 +14,13 @@ function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const SimpleSnackbar = (props: snackBarProps) => {
-  const { message, state, mode, onClose } = props;
+const SimpleSnackbar = (props: any) => {
+  console.log(props);
+  const { snackbarValues, resetSnackbarState } = props;
+  const { message, mode = "error", state } = snackbarValues;
 
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
+    resetSnackbarState();
   };
 
   return (
@@ -45,4 +40,16 @@ const SimpleSnackbar = (props: snackBarProps) => {
   );
 };
 
-export default SimpleSnackbar;
+const mapStateToProps = (state: any) => {
+  return {
+    snackbarValues: state.snackbarValues,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    resetSnackbarState: () => dispatch(actions.resetSnackbarState()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleSnackbar);

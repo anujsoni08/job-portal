@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "./index.css";
 import { handleUserRegistration } from "../../../../utils/public.api.helper";
 import { USER_TYPE } from "../../../../utils/constant";
+import * as actions from "../../../../store/action";
 
-const Register = () => {
+const Register = (props: any) => {
   let [formValues, setFormValues] = useState({
     email: "",
     userRole: USER_TYPE.RECRUITER,
@@ -30,7 +32,21 @@ const Register = () => {
       ...formValues,
       userRole: Number(formValues.userRole),
     };
-    await handleUserRegistration(formValues);
+    const res: any = await handleUserRegistration(formValues);
+    if (res.data.code === 200 || res.data.code === 201) {
+      props.setSnackbarState({
+        mode: "success",
+        message: "Successfully Registered.",
+        state: true,
+      });
+      props.history.push("/login");
+    } else {
+      props.setSnackbarState({
+        mode: "error",
+        message: "Registration failed.",
+        state: true,
+      });
+    }
   };
 
   return (
@@ -160,4 +176,17 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state: any) => {
+  return {
+    snackbarValues: state.snackbarValues,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

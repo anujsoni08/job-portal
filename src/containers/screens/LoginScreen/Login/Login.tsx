@@ -1,29 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "./index.css";
 import { handleUserLogin } from "../../../../utils/public.api.helper";
-import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
+import * as actions from "../../../../store/action";
 
 const Login = (props: any) => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
-
-  const [snackbarValues, setSnackbarValues] = useState({
-    mode: "error",
-    message: "",
-    state: false,
-  });
-
-  const handleSnackbarClose = () => {
-    setSnackbarValues({
-      mode: "error",
-      message: "",
-      state: false,
-    });
-  };
 
   const handleLoginFormValues = (event: any) => {
     const { value, name } = event.target;
@@ -39,7 +26,7 @@ const Login = (props: any) => {
     const res: any = await handleUserLogin(formValues);
     if (res.data.code === 200) {
       const { email, name, userRole, skills, token, id } = res.data.data;
-      setSnackbarValues({
+      props.setSnackbarState({
         mode: "success",
         message: "Successfully logged in",
         state: true,
@@ -52,9 +39,9 @@ const Login = (props: any) => {
       await sessionStorage.setItem("id", id);
       props.history.push("/");
     } else {
-      setSnackbarValues({
+      props.setSnackbarState({
         mode: "error",
-        message: "Successfully logged in",
+        message: "Logged in failed",
         state: true,
       });
     }
@@ -116,14 +103,21 @@ const Login = (props: any) => {
           </form>
         </div>
       </div>
-      <SimpleSnackbar
-        message={snackbarValues.message}
-        state={snackbarValues.state}
-        mode={snackbarValues.mode}
-        onClose={() => handleSnackbarClose()}
-      />
     </div>
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => {
+  return {
+    snackbarValues: state.snackbarValues,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
