@@ -33,7 +33,7 @@ const Register = (props: any) => {
       userRole: Number(formValues.userRole),
     };
     const res: any = await handleUserRegistration(formValues);
-    if (res.data.code === 200 || res.data.code === 201) {
+    if (res.data.success) {
       props.setSnackbarState({
         mode: "success",
         message: "Successfully Registered.",

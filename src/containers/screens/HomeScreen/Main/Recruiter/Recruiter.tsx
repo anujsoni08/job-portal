@@ -15,11 +15,14 @@ const Recruiter = () => {
   const [jobList, setJobList] = useState([]);
   const [selectedJobId, setSelectedJobId] = useState("");
 
+  console.log('recruiter');
+
   const [modalState, setModalState] = useState(false);
 
   const getJobListing = async () => {
     const res = await getRecruiterPostedJobList();
-    if (res.data.code === 200) {
+    console.log(res);
+    if (res.data.success) {
       setJobList(res.data.data.data);
     } else {
       setJobList([]);

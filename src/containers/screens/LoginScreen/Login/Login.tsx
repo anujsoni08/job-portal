@@ -24,7 +24,7 @@ const Login = (props: any) => {
   const handleLogin = async (event: any) => {
     event.preventDefault();
     const res: any = await handleUserLogin(formValues);
-    if (res.data.code === 200) {
+    if (res.data.success) {
       const { email, name, userRole, skills, token, id } = res.data.data;
       props.setSnackbarState({
         mode: "success",
@@ -107,12 +107,6 @@ const Login = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    snackbarValues: state.snackbarValues,
-  };
-};
-
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setSnackbarState: (snackbarObj: any) =>
@@ -120,4 +114,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

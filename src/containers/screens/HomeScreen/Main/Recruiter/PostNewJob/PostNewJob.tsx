@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { createJob } from "../../../../../../utils/private.api.helper";
+import { connect } from "react-redux";
 
+import { createJob } from "../../../../../../utils/private.api.helper";
+import * as actions from "../../../../../../store/action";
 
 const PostNewJob = (props: any) => {
   const [formValues, setFormValues] = useState({
@@ -21,7 +23,19 @@ const PostNewJob = (props: any) => {
   const handlePostNewJob = async (event: any) => {
     event.preventDefault();
     const res = await createJob(formValues);
-    props.handleStatus(res.data);
+    if (res.data.success) {
+      props.setSnackbarState({
+        mode: "success",
+        message: "New job successfully posted",
+        state: true,
+      });
+    } else {
+      props.setSnackbarState({
+        mode: "error",
+        message: "New job posting error",
+        state: true,
+      });
+    }
   };
 
   return (
@@ -90,4 +104,11 @@ const PostNewJob = (props: any) => {
   );
 };
 
-export default PostNewJob;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(PostNewJob);

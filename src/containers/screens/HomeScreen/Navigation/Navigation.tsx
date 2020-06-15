@@ -60,26 +60,7 @@ const Navigation = ({ history }: RouteComponentProps) => {
     if (userRole === USER_TYPE.CANDIDATE) {
       return <AlreadyAppliedJobs />;
     } else {
-      return <PostNewJob handleStatus={handleJobPostStatus} />;
-    }
-  };
-
-  const handleJobPostStatus = (res: any) => {
-    console.log(res);
-    if (res.code === 200 || res.code === 201) {
-      setSnackbarValues({
-        mode: "success",
-        message: "New job successfully posted",
-        state: true,
-      });
-      setModalState(false);
-    } else {
-      setSnackbarValues({
-        mode: "error",
-        message: "New job posting error",
-        state: true,
-      });
-      setModalState(false);
+      return <PostNewJob />;
     }
   };
 
