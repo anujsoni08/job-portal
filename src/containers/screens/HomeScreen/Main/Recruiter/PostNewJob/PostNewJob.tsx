@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { createJob } from "../../../../../../utils/private.api.helper";
 
-import { createJob } from "../../../../../utils/private.api.helper";
 
 const PostNewJob = (props: any) => {
   const [formValues, setFormValues] = useState({

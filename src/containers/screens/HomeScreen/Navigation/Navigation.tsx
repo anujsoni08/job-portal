@@ -3,10 +3,10 @@ import { withRouter, RouteComponentProps } from "react-router";
 
 import "./index.css";
 import { USER_TYPE } from "../../../../utils/constant";
-import AlreadyAppliedJobs from "../Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
 import Modal from "../../../../components/common/Modal/Modal";
-import PostNewJobs from "../Recruiter/PostNewJob/PostNewJob";
 import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
+import AlreadyAppliedJobs from "../Main/Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
+import PostNewJob from "../Main/Recruiter/PostNewJob/PostNewJob";
 
 const Navigation = ({ history }: RouteComponentProps) => {
   const userRole: any = parseInt(sessionStorage.getItem("userRole") ?? "");
@@ -60,7 +60,7 @@ const Navigation = ({ history }: RouteComponentProps) => {
     if (userRole === USER_TYPE.CANDIDATE) {
       return <AlreadyAppliedJobs />;
     } else {
-      return <PostNewJobs handleStatus={handleJobPostStatus} />;
+      return <PostNewJob handleStatus={handleJobPostStatus} />;
     }
   };
 

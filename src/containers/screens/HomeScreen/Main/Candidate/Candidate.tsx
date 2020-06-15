@@ -1,10 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 
-import {
-  getAvailableJobList,
-  applyCandidateJob,
-} from "../../../../utils/private.api.helper";
-import { JobDetailInterface } from "../../../../utils/constant";
+import { getAvailableJobList, applyCandidateJob } from "../../../../../utils/private.api.helper";
+import { JobDetailInterface } from "../../../../../utils/constant";
 
 const Candidate = () => {
   const [jobList, setJobList] = useState([]);

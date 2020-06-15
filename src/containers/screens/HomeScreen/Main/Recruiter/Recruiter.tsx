@@ -4,13 +4,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { withRouter } from "react-router";
 
 import {
-  deleteJob,
   getRecruiterPostedJobList,
-} from "../../../../utils/private.api.helper";
-import "./index.css";
-import JobDetail from "../../../../components/common/JobDetail/JobDetail";
-import Modal from "../../../../components/common/Modal/Modal";
-import { JobDetailInterface } from "../../../../utils/constant";
+  deleteJob,
+} from "../../../../../utils/private.api.helper";
+import { JobDetailInterface } from "../../../../../utils/constant";
+import JobDetail from "../../../../../components/common/JobDetail/JobDetail";
+import Modal from "../../../../../components/common/Modal/Modal";
 
 const Recruiter = () => {
   const [jobList, setJobList] = useState([]);

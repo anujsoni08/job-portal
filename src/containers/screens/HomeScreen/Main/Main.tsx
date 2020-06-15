@@ -3,9 +3,9 @@ import React, { lazy } from "react";
 import "./index.css";
 import { USER_TYPE } from "../../../../utils/constant";
 
-const Candidate = lazy(() => import("../Candidate/Candidate"));
+const Candidate = lazy(() => import("./Candidate/Candidate"));
 
-const Recruiter = lazy(() => import("../Recruiter/Recruiter"));
+const Recruiter = lazy(() => import("./Recruiter/Recruiter"));
 
 const Main = () => {
   const renderScreen = () => {
