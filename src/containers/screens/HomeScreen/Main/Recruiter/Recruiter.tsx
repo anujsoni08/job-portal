@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { withRouter } from "react-router";
+import { connect } from "react-redux";
 
 import {
   getRecruiterPostedJobList,
@@ -10,22 +10,25 @@ import {
 import { JobDetailInterface } from "../../../../../utils/constant";
 import JobDetail from "../../../../../components/common/JobDetail/JobDetail";
 import Modal from "../../../../../components/common/Modal/Modal";
+import * as actions from "../../../../../store/action";
 
-const Recruiter = () => {
+const Recruiter = (props: any) => {
   const [jobList, setJobList] = useState([]);
   const [selectedJobId, setSelectedJobId] = useState("");
-
-  console.log('recruiter');
 
   const [modalState, setModalState] = useState(false);
 
   const getJobListing = async () => {
     const res = await getRecruiterPostedJobList();
-    console.log(res);
-    if (res.data.success) {
-      setJobList(res.data.data.data);
+    if (res.success) {
+      setJobList(res.data.data);
     } else {
       setJobList([]);
+      props.setSnackbarState({
+        mode: "error",
+        message: "Recruiter posted job list fetching failed.",
+        state: true,
+      });
     }
   };
 
@@ -38,10 +41,6 @@ const Recruiter = () => {
       jobId,
     };
     await deleteJob(params);
-  };
-
-  const handleModalClose = () => {
-    setModalState(!modalState);
   };
 
   return (
@@ -78,25 +77,23 @@ const Recruiter = () => {
                           className="dropdown-menu dropdown-menu-right"
                           aria-labelledby="dropdownMenuButton"
                         >
-                          <a
+                          <div
+                            style={{ cursor: "pointer" }}
                             className="dropdown-item"
-                            role="button"
-                            type="button"
                             onClick={() => {
                               setSelectedJobId(jobDetail.id);
                               setModalState(true);
                             }}
                           >
                             View Job Details
-                          </a>
-                          <a
-                            role="button"
-                            type="button"
+                          </div>
+                          <div
+                            style={{ cursor: "pointer" }}
                             className="dropdown-item"
                             onClick={() => handleDeleteJob(jobDetail.id)}
                           >
                             Delete Job
-                          </a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -115,11 +112,18 @@ const Recruiter = () => {
           <h6 className="pb-2 mb-0">No Job Posted</h6>
         )}
       </div>
-      <Modal isOpen={modalState} onClose={() => handleModalClose()}>
+      <Modal isOpen={modalState} onClose={() => setModalState(false)}>
         <JobDetail jobId={selectedJobId} />
       </Modal>
     </Fragment>
   );
 };
 
-export default withRouter(Recruiter);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Recruiter);

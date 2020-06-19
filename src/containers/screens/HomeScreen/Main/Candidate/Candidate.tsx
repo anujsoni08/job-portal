@@ -1,14 +1,28 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { connect } from "react-redux";
 
-import { getAvailableJobList, applyCandidateJob } from "../../../../../utils/private.api.helper";
+import {
+  getAvailableJobList,
+  applyCandidateJob,
+} from "../../../../../utils/private.api.helper";
 import { JobDetailInterface } from "../../../../../utils/constant";
+import * as actions from "../../../../../store/action";
 
-const Candidate = () => {
+const Candidate = (props: any) => {
   const [jobList, setJobList] = useState([]);
 
   const getJobListing = async () => {
     const res = await getAvailableJobList();
-    setJobList(res.data.data ?? []);
+    if (res.success) {
+      setJobList(res.data);
+    } else {
+      setJobList([]);
+      props.setSnackbarState({
+        mode: "error",
+        message: "Available Job fetching failed.",
+        state: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -26,7 +40,7 @@ const Candidate = () => {
     <div className="my-3 p-3 bg-white rounded shadow-sm">
       {jobList.length ? (
         <Fragment>
-        <h6 className="border-bottom border-gray pb-2 mb-0">
+          <h6 className="border-bottom border-gray pb-2 mb-0">
             Available Jobs
           </h6>
           {jobList.map((jobDetail: JobDetailInterface) => {
@@ -37,12 +51,12 @@ const Candidate = () => {
                     <strong className="text-gray-dark">
                       {jobDetail.title}
                     </strong>
-                    <a
-                      role="button"
+                    <div
+                      style={{ cursor: "pointer" }}
                       onClick={() => handleApplyJob(jobDetail.id)}
                     >
                       Apply
-                    </a>
+                    </div>
                   </div>
                   <span className="d-block">
                     Location : {jobDetail.location}
@@ -62,4 +76,11 @@ const Candidate = () => {
   );
 };
 
-export default Candidate;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Candidate);

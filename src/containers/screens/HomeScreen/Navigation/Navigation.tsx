@@ -8,6 +8,7 @@ import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
 import AlreadyAppliedJobs from "../Main/Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
 import PostNewJob from "../Main/Recruiter/PostNewJob/PostNewJob";
 import { Link } from "react-router-dom";
+import { findAllByTestId } from "@testing-library/react";
 
 const Navigation = ({ history }: RouteComponentProps) => {
   const userRole: any = parseInt(sessionStorage.getItem("userRole") ?? "");
@@ -32,26 +33,25 @@ const Navigation = ({ history }: RouteComponentProps) => {
     if (userRole === USER_TYPE.CANDIDATE) {
       return (
         <li className="nav-item active">
-          <a
+          <div
             className="nav-link"
-            role="button"
-            type="button"
+            style={{ cursor: "pointer" }}
             onClick={() => setModalState(true)}
           >
             Already Applied Jobs
-          </a>
+          </div>
         </li>
       );
     } else {
       return (
         <li className="nav-item">
-          <a
+          <div
             className="nav-link"
-            role="button"
+            style={{ cursor: "pointer" }}
             onClick={() => setModalState(true)}
           >
             Post a Job
-          </a>
+          </div>
         </li>
       );
     }
@@ -59,9 +59,9 @@ const Navigation = ({ history }: RouteComponentProps) => {
 
   const modalChildren = () => {
     if (userRole === USER_TYPE.CANDIDATE) {
-      return <AlreadyAppliedJobs />;
+      return <AlreadyAppliedJobs onClose={() => setModalState(false)} />;
     } else {
-      return <PostNewJob />;
+      return <PostNewJob onClose={() => setModalState(false)} />;
     }
   };
 
@@ -105,21 +105,25 @@ const Navigation = ({ history }: RouteComponentProps) => {
               className="dropdown-menu dropdown-menu-right"
               aria-labelledby="dropdownMenuButton"
             >
-              <a className="dropdown-item" role="button" onClick={handleLogout}>
+              <div
+                style={{ cursor: "pointer" }}
+                className="dropdown-item"
+                onClick={handleLogout}
+              >
                 Log Out
-              </a>
+              </div>
             </div>
           </div>
         </div>
       </nav>
-      <Modal isOpen={modalState} onClose={() => setModalState(!modalState)}>
+      <Modal isOpen={modalState} onClose={() => setModalState(false)}>
         {modalChildren()}
       </Modal>
       <SimpleSnackbar
         message={snackbarValues.message}
         state={snackbarValues.state}
         mode={snackbarValues.mode}
-        onClose={() => handleSnackbarClose()}
+        onClose={handleSnackbarClose}
       />
     </header>
   );

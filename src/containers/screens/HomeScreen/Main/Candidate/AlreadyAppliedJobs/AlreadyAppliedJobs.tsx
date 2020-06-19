@@ -1,13 +1,25 @@
 import React, { useState, Fragment, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../../../../../store/action";
+
 import { getCandidateAlreadyAppliedJobList } from "../../../../../../utils/private.api.helper";
 import { JobDetailInterface } from "../../../../../../utils/constant";
 
-const AlreadyAppliedJobs = () => {
+const AlreadyAppliedJobs = (props: any) => {
   const [jobList, setJobList] = useState([]);
 
   const getAppliedJobListing = async () => {
     const res = await getCandidateAlreadyAppliedJobList();
-    setJobList(res.data.data ?? []);
+    if (res.success) {
+      setJobList(res.data);
+    } else {
+      setJobList([]);
+      props.setSnackbarState({
+        mode: "error",
+        message: "Already applied job list fetching failed.",
+        state: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -46,4 +58,11 @@ const AlreadyAppliedJobs = () => {
   );
 };
 
-export default AlreadyAppliedJobs;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSnackbarState: (snackbarObj: any) =>
+      dispatch(actions.setSnackbarState(snackbarObj)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AlreadyAppliedJobs);

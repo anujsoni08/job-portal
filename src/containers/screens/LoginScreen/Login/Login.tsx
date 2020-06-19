@@ -24,8 +24,8 @@ const Login = (props: any) => {
   const handleLogin = async (event: any) => {
     event.preventDefault();
     const res: any = await handleUserLogin(formValues);
-    if (res.data.success) {
-      const { email, name, userRole, skills, token, id } = res.data.data;
+    if (res.success) {
+      const { email, name, userRole, skills, token, id } = res.data;
       props.setSnackbarState({
         mode: "success",
         message: "Successfully logged in",
@@ -41,7 +41,7 @@ const Login = (props: any) => {
     } else {
       props.setSnackbarState({
         mode: "error",
-        message: "Logged in failed",
+        message: res.message ?? "Logged in failed",
         state: true,
       });
     }

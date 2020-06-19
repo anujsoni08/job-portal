@@ -23,18 +23,24 @@ const PostNewJob = (props: any) => {
   const handlePostNewJob = async (event: any) => {
     event.preventDefault();
     const res = await createJob(formValues);
-    if (res.data.success) {
+    if (res.success) {
       props.setSnackbarState({
         mode: "success",
         message: "New job successfully posted",
         state: true,
       });
+      if (props.onClose) {
+        props.onClose();
+      }
     } else {
       props.setSnackbarState({
         mode: "error",
         message: "New job posting error",
         state: true,
       });
+      if (props.onClose) {
+        props.onClose();
+      }
     }
   };
 
