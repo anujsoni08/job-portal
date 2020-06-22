@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 import PrivateRoutes from "./components/common/PrivateRoutes/PrivateRoutes";
@@ -20,9 +20,10 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
+        <PrivateRoutes path="/" component={HomeScreen} exact />
         <Route path="/login" component={LoginScreen} />
         <Route path="/signup" component={SignupScreen} />
-        <PrivateRoutes path="/" component={HomeScreen} exact />
+        <Redirect from="*" to="/" />
       </Switch>
     </Suspense>
   );
