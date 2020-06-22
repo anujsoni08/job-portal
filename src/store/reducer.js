@@ -4,7 +4,7 @@ import { updateObject } from "./utility";
 const initialState = {
   snackbarValues: {
     state: false,
-    mode: "",
+    mode: "error",
     message: "",
   },
 };

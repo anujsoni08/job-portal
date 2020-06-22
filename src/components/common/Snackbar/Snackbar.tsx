@@ -16,7 +16,7 @@ function Alert(props: any) {
 
 const SimpleSnackbar = (props: any) => {
   const { snackbarValues, resetSnackbarState } = props;
-  const { message, mode = "error", state } = snackbarValues;
+  const { message, mode, state } = snackbarValues;
 
   const handleClose = () => {
     resetSnackbarState();
