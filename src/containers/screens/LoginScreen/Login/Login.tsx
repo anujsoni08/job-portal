@@ -31,12 +31,12 @@ const Login = (props: any) => {
         message: "Successfully logged in",
         state: true,
       });
-      await sessionStorage.setItem("email", email);
-      await sessionStorage.setItem("name", name);
-      await sessionStorage.setItem("userRole", userRole);
-      await sessionStorage.setItem("skills", skills);
-      await sessionStorage.setItem("token", token);
-      await sessionStorage.setItem("id", id);
+      await localStorage.setItem("email", email);
+      await localStorage.setItem("name", name);
+      await localStorage.setItem("userRole", userRole);
+      await localStorage.setItem("skills", skills);
+      await localStorage.setItem("token", token);
+      await localStorage.setItem("id", id);
       props.history.push("/");
     } else {
       props.setSnackbarState({

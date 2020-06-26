@@ -9,7 +9,7 @@ const Recruiter = lazy(() => import("./Recruiter/Recruiter"));
 
 const Main = () => {
   const renderScreen = () => {
-    const userRole = parseInt(sessionStorage.getItem("userRole") ?? "");
+    const userRole = parseInt(localStorage.getItem("userRole") ?? "");
       if (userRole === USER_TYPE.CANDIDATE) {
         return <Candidate />;
       } else {

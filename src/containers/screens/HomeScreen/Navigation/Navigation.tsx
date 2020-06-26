@@ -8,10 +8,9 @@ import SimpleSnackbar from "../../../../components/common/Snackbar/Snackbar";
 import AlreadyAppliedJobs from "../Main/Candidate/AlreadyAppliedJobs/AlreadyAppliedJobs";
 import PostNewJob from "../Main/Recruiter/PostNewJob/PostNewJob";
 import { Link } from "react-router-dom";
-import { findAllByTestId } from "@testing-library/react";
 
 const Navigation = ({ history }: RouteComponentProps) => {
-  const userRole: any = parseInt(sessionStorage.getItem("userRole") ?? "");
+  const userRole: any = parseInt(localStorage.getItem("userRole") ?? "");
 
   const [modalState, setModalState] = useState(false);
 
@@ -66,7 +65,7 @@ const Navigation = ({ history }: RouteComponentProps) => {
   };
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     history.push("/");
   };
 
@@ -99,7 +98,7 @@ const Navigation = ({ history }: RouteComponentProps) => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              {sessionStorage.getItem("name")}
+              {localStorage.getItem("name")}
             </button>
             <div
               className="dropdown-menu dropdown-menu-right"

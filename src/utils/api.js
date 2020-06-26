@@ -18,7 +18,7 @@ export const privateAxiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    Authorization: `${sessionStorage.getItem("token")}`,
+    Authorization: `${localStorage.getItem("token")}`,
   },
   timeout: API_REQUEST_TIMEOUT,
 });

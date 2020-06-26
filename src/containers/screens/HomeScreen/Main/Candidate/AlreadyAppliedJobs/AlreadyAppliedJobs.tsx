@@ -31,7 +31,7 @@ const AlreadyAppliedJobs = (props: any) => {
       <h6 className="border-bottom border-gray pb-2 mb-0">
         Already Applied Jobs
       </h6>
-      <div className="my-3 p-3 bg-white rounded shadow-sm">
+      <div className="my-3 p-3 bg-white rounded shadow-sm overflow-auto">
         {jobList.length
           ? jobList.map((jobDetail: JobDetailInterface) => {
               return (

@@ -6,7 +6,7 @@ function PrivateRoutes({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        !!sessionStorage.length ? (
+        !!localStorage.length ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />
