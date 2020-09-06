@@ -22,3 +22,9 @@ export const privateAxiosInstance = axios.create({
   },
   timeout: API_REQUEST_TIMEOUT,
 });
+
+privateAxiosInstance.interceptors.request.use(function (config) {
+  const token = `${localStorage.getItem("token")}`;
+  config.headers.Authorization = token ? token : "";
+  return config;
+});
