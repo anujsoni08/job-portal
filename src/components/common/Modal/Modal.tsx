@@ -1,6 +1,6 @@
-import React from 'react';
-import Modal from '@material-ui/core/Modal';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import React from "react";
+import Modal from "@material-ui/core/Modal";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 export interface ModalProps {
   isOpen: boolean;
@@ -10,28 +10,28 @@ export interface ModalProps {
 
 const useStyles = makeStyles({
   modalBody: {
-    background: '#ffffff',
-    paddingBottom: '2%',
-    padding: '2em',
-    maxWidth: '600px',
-    display: 'flex',
-    maxHeight: 'calc(100% - 64px)',
-    flexDirection: 'column',
-    width: '100%',
-    transform: 'translate(-50%, -50%)',
-    top: '50%',
-    left: '50%',
-    position: 'relative',
-    '&:active': {
-      outline: 'none',
+    background: "#ffffff",
+    paddingBottom: "2%",
+    padding: "2em",
+    maxWidth: "600px",
+    display: "flex",
+    maxHeight: "calc(100% - 64px)",
+    flexDirection: "column",
+    width: "100%",
+    transform: "translate(-50%, -50%)",
+    top: "50%",
+    left: "50%",
+    position: "relative",
+    "&:active": {
+      outline: "none",
     },
-    '&:focus': {
-      outline: 'none',
+    "&:focus": {
+      outline: "none",
     },
   },
 });
 
-const ModalComponent = function(props: ModalProps) {
+const ModalComponent = function (props: ModalProps) {
   const { onClose, isOpen } = props;
   const classes = useStyles();
 

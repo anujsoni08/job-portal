@@ -10,11 +10,11 @@ const Recruiter = lazy(() => import("./Recruiter/Recruiter"));
 const Main = () => {
   const renderScreen = () => {
     const userRole = parseInt(localStorage.getItem("userRole") ?? "");
-      if (userRole === USER_TYPE.CANDIDATE) {
-        return <Candidate />;
-      } else {
-        return <Recruiter />;
-      }
+    if (userRole === USER_TYPE.CANDIDATE) {
+      return <Candidate />;
+    } else {
+      return <Recruiter />;
+    }
   };
 
   return <main role="main">{renderScreen()}</main>;
