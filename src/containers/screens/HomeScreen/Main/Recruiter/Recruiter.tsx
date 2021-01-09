@@ -21,7 +21,11 @@ const Recruiter = (props: any) => {
   const getJobListing = async () => {
     const res = await getRecruiterPostedJobList();
     if (res.success) {
-      setJobList(res.data.data);
+      if (res.data && res.data.data.length) {
+        setJobList(res.data.data);
+      } else {
+        setJobList([]);
+      }
     } else {
       setJobList([]);
       props.setSnackbarState({
